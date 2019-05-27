@@ -257,12 +257,12 @@ namespace Game1
 
             if (pause == false) // Om spelet inte är i pause.
             {
-                    hero.Draw(spriteBatch);
+                hero.Draw(spriteBatch);
 
-                foreach (Enemy enemies in enemy)
+                foreach (Enemy enemies in enemy) // Ritar ut spriten för varje enemy som skapas.
                     enemies.Draw(spriteBatch);
 
-                foreach (Bullet bullets in bullet)
+                foreach (Bullet bullets in bullet) // Riar ut spriten för varje bullet som skapas.
                     bullets.Draw(spriteBatch);
 
                 score.Draw(spriteBatch);
