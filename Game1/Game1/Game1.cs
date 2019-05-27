@@ -37,8 +37,8 @@ namespace Game1
         enum GameState
         {
             MainMenu,
-            Options,
-            Playing
+            Playing,
+            GameOver
         }
         GameState CurrentGameState = GameState.MainMenu; // När spelet startas så börjar det på MainMenu.
 
@@ -156,6 +156,8 @@ namespace Game1
 
             if (CurrentGameState == GameState.MainMenu)
                 pause = true; // När spelet startas är det i MainMenu och är i pause lägge.
+            if (CurrentGameState == GameState.GameOver)
+                Exit();
 
             //Menu
             switch (CurrentGameState)
@@ -170,18 +172,16 @@ namespace Game1
                 case GameState.Playing:
 
                     pause = false; // Medans GameState är i playing så är spelet inte i pause.
+                    if (Keyboard.GetState().IsKeyDown(Keys.Escape) || hero.hp == 0) CurrentGameState = GameState.GameOver;
+                    break;
 
+                case GameState.GameOver:
+                    WriteHighscore();
                     break;
             }
 
             if (pause == false) // Om spelet inte är i pause så laddas allt i denna text upp.
             {
-                if (hero.hp == 0) // Om hero är död så skrivs Highscore i en .txt file.
-                    WriteHighscore();
-
-                if (Keyboard.GetState().IsKeyDown(Keys.Escape) || hero.hp == 0)
-                    Exit(); // stänger spelet när hero är död.
-
                 //Enemy
                 spawn += (float)gameTime.ElapsedGameTime.TotalSeconds; // Gör en timer för enemy.
 
